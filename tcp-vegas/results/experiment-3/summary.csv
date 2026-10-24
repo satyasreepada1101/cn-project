@@ -1,0 +1,5 @@
+Algorithm,Packet_Loss_Percent,Received_Bytes,Throughput_Mbps
+TCP Vegas,0,2499584,1.99967
+TCP Vegas,0.1,2499584,1.99967
+TCP Vegas,0.5,2217984,1.77439
+TCP Vegas,1,1964032,1.57123

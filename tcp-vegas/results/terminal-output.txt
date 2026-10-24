@@ -1,0 +1,67 @@
+TCP Vegas experiment verification
+2026-10-25T01:18:52+05:30
+
+$ ./ns3 build
+Finished executing the following commands:
+/usr/bin/cmake --build /mnt/c/Satya Sreepada/B.Tech/SEM 5/Computer Networks/Project/ns-allinone-3.43/ns-3.43/cmake-cache -j 15
+
+$ ./ns3 run scratch/experiment-1-vegas/vegas-experiment-1 --bandwidth=10
+TCP Vegas Experiment 1 Started
+Bottleneck bandwidth: 10 Mbps
+Created 2 nodes
+Connected nodes with 10Mbps, 10ms link
+Node 0 IP: 10.1.1.1
+Node 1 IP: 10.1.1.2
+TCP Vegas traffic started
+Total Bytes Received: 2499584
+Throughput: 1.99967 Mbps
+
+$ ./ns3 run scratch/experiment-1-vegas/vegas-experiment-1 --bandwidth=5
+TCP Vegas Experiment 1 Started
+Bottleneck bandwidth: 5 Mbps
+Created 2 nodes
+Connected nodes with 5Mbps, 10ms link
+Node 0 IP: 10.1.1.1
+Node 1 IP: 10.1.1.2
+TCP Vegas traffic started
+Total Bytes Received: 2301952
+Throughput: 1.84156 Mbps
+
+$ ./ns3 run scratch/experiment-1-vegas/vegas-experiment-1 --bandwidth=2
+TCP Vegas Experiment 1 Started
+Bottleneck bandwidth: 2 Mbps
+Created 2 nodes
+Connected nodes with 2Mbps, 10ms link
+Node 0 IP: 10.1.1.1
+Node 1 IP: 10.1.1.2
+TCP Vegas traffic started
+Total Bytes Received: 1236992
+Throughput: 0.989594 Mbps
+
+$ ./ns3 run scratch/experiment-2-vegas/vegas-experiment-2
+Delay: 10 ms, received bytes: 2499584, throughput: 1.99967 Mbps
+Delay: 50 ms, received bytes: 1387520, throughput: 1.11002 Mbps
+Delay: 100 ms, received bytes: 736256, throughput: 0.589005 Mbps
+Delay: 200 ms, received bytes: 778160, throughput: 0.622528 Mbps
+Results saved to scratch/results/tcp-vegas/experiment-2/summary.csv
+
+$ ./ns3 run scratch/experiment-3-vegas/vegas-experiment-3
+Packet loss: 0%, received bytes: 2499584, throughput: 1.99967 Mbps
+Packet loss: 0.1%, received bytes: 2499584, throughput: 1.99967 Mbps
+Packet loss: 0.5%, received bytes: 2217984, throughput: 1.77439 Mbps
+Packet loss: 1%, received bytes: 1964032, throughput: 1.57123 Mbps
+Packet loss is applied at the receiver-side device of the bottleneck point-to-point link.
+Results saved to scratch/results/tcp-vegas/experiment-3/summary.csv
+
+$ ./ns3 run scratch/experiment-4-vegas/vegas-experiment-4
+Flows: 1, flow 1, received bytes: 2499584, throughput: 1.99967 Mbps
+Flows: 1, aggregate received bytes: 2499584, aggregate throughput: 1.99967 Mbps, Jain fairness: 1
+Flows: 2, flow 1, received bytes: 2499584, throughput: 1.99967 Mbps
+Flows: 2, flow 2, received bytes: 2499584, throughput: 1.99967 Mbps
+Flows: 2, aggregate received bytes: 4999168, aggregate throughput: 3.99933 Mbps, Jain fairness: 1
+Flows: 4, flow 1, received bytes: 1669120, throughput: 1.3353 Mbps
+Flows: 4, flow 2, received bytes: 1667072, throughput: 1.33366 Mbps
+Flows: 4, flow 3, received bytes: 1664000, throughput: 1.3312 Mbps
+Flows: 4, flow 4, received bytes: 1521664, throughput: 1.21733 Mbps
+Flows: 4, aggregate received bytes: 6521856, aggregate throughput: 5.21748 Mbps, Jain fairness: 0.998517
+Results saved to scratch/results/tcp-vegas/experiment-4/summary.csv
