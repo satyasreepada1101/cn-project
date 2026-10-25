@@ -1,0 +1,3 @@
+Algorithm,NumberOfFlows,Bandwidth_Mbps,Delay_ms,PacketSize_bytes,SimulationTime_s,MeasurementWindow_s,FlowID,ReceivedBytes,Throughput_Mbps,TotalThroughput_Mbps,JainFairnessIndex
+YeAH,2,10,10,1024,20,19,1,10740536,4.52233,9.04325,1
+YeAH,2,10,10,1024,20,19,2,10737176,4.52092,9.04325,1

@@ -1,0 +1,2 @@
+Algorithm,Bandwidth_Mbps,Delay_ms,PacketLoss_Percent,PacketSize_bytes,SimulationTime_s,MeasurementWindow_s,TotalBytesReceived,Throughput_Mbps
+YeAH,10,10,1,1024,10,9,1780888,1.58301
