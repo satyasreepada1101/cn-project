@@ -1,0 +1,5 @@
+Algorithm,Bandwidth_Mbps,Delay_ms,PacketSize_bytes,SimulationTime_s,MeasurementWindow_s,TotalBytesReceived,Throughput_Mbps
+Veno,10,10,1024,10,9,5605376,4.98256
+Veno,10,50,1024,10,9,5320704,4.72951
+Veno,10,100,1024,10,9,4688896,4.16791
+Veno,10,200,1024,10,9,1981440,1.76128

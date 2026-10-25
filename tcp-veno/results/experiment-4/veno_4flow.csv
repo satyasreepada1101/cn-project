@@ -1,0 +1,5 @@
+Algorithm,NumberOfFlows,Bandwidth_Mbps,Delay_ms,PacketSize_bytes,SimulationTime_s,MeasurementWindow_s,FlowID,ReceivedBytes,Throughput_Mbps,TotalThroughput_Mbps,JainFairnessIndex
+Veno,4,10,10,1024,20,19,1,5281504,2.22379,9.05811,0.998464
+Veno,4,10,10,1024,20,19,2,5578984,2.34905,9.05811,0.998464
+Veno,4,10,10,1024,20,19,3,5078360,2.13826,9.05811,0.998464
+Veno,4,10,10,1024,20,19,4,5574160,2.34701,9.05811,0.998464
