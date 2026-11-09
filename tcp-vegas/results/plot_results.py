@@ -19,10 +19,13 @@ def read_rows(experiment):
         return list(csv.DictReader(csv_file))
 
 
-def make_plot(filename, title, x_label, y_label, series, x_ticks, y_max):
+def make_plot(filename, title, x_label, y_label, series, x_ticks, y_max=None):
     plot_width = WIDTH - LEFT - RIGHT
     plot_height = HEIGHT - TOP - BOTTOM
     x_min, x_max = min(x_ticks), max(x_ticks)
+    if y_max is None:
+        values = [y for _, points in series for _, y in points]
+        y_max = max(values) * 1.1 if values else 1.0
 
     def x_position(value):
         if x_max == x_min:
@@ -120,15 +123,15 @@ def main():
     flow_rows = read_rows("experiment-4")
 
     bandwidth_points = [
-        (float(row["Bottleneck_Bandwidth_Mbps"]), float(row["Throughput_Mbps"]))
+        (float(row["Bandwidth_Mbps"]), float(row["Throughput_Mbps"]))
         for row in bandwidth_rows
     ]
     delay_points = [
-        (float(row["Bottleneck_Delay_ms"]), float(row["Throughput_Mbps"]))
+        (float(row["Delay_ms"]), float(row["Throughput_Mbps"]))
         for row in delay_rows
     ]
     loss_points = [
-        (float(row["Packet_Loss_Percent"]), float(row["Throughput_Mbps"]))
+        (float(row["PacketLoss_Percent"]), float(row["Throughput_Mbps"]))
         for row in loss_rows
     ]
 
@@ -139,7 +142,6 @@ def main():
         "Throughput (Mbps)",
         [("TCP Vegas", sorted(bandwidth_points))],
         sorted({point[0] for point in bandwidth_points}),
-        2.2,
     )
     make_plot(
         "experiment-2-delay-vs-throughput.svg",
@@ -148,7 +150,6 @@ def main():
         "Throughput (Mbps)",
         [("TCP Vegas", sorted(delay_points))],
         sorted({point[0] for point in delay_points}),
-        2.2,
     )
     make_plot(
         "experiment-3-packet-loss-vs-throughput.svg",
@@ -157,15 +158,14 @@ def main():
         "Throughput (Mbps)",
         [("TCP Vegas", sorted(loss_points))],
         sorted({point[0] for point in loss_points}),
-        2.2,
     )
 
     flow_series = []
     for flow_count in (1, 2, 4):
         points = [
-            (float(row["Flow_ID"]), float(row["Throughput_Mbps"]))
+            (float(row["FlowID"]), float(row["Throughput_Mbps"]))
             for row in flow_rows
-            if int(row["Number_of_Flows"]) == flow_count
+            if int(row["NumberOfFlows"]) == flow_count
         ]
         flow_series.append((f"{flow_count} flow(s)", sorted(points)))
     make_plot(
@@ -175,7 +175,6 @@ def main():
         "Throughput (Mbps)",
         flow_series,
         [1, 2, 3, 4],
-        2.2,
     )
 
     for plot_path in sorted(PLOT_DIR.glob("*.svg")):

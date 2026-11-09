@@ -1,8 +1,8 @@
-Algorithm,Number_of_Flows,Flow_ID,Received_Bytes,Throughput_Mbps,Aggregate_Throughput_Mbps,Jain_Fairness
-TCP Vegas,1,1,2499584,1.99967,1.99967,1
-TCP Vegas,2,1,2499584,1.99967,3.99933,1
-TCP Vegas,2,2,2499584,1.99967,3.99933,1
-TCP Vegas,4,1,1669120,1.3353,5.21748,0.998517
-TCP Vegas,4,2,1667072,1.33366,5.21748,0.998517
-TCP Vegas,4,3,1664000,1.3312,5.21748,0.998517
-TCP Vegas,4,4,1521664,1.21733,5.21748,0.998517
+Algorithm,NumberOfFlows,Bandwidth_Mbps,Delay_ms,PacketSize_bytes,SimulationTime_s,MeasurementWindow_s,FlowID,ReceivedBytes,Throughput_Mbps,TotalThroughput_Mbps,JainFairnessIndex
+Vegas,1,10,10,1024,20,19,1,9908256,4.1719,4.1719,1
+Vegas,2,10,10,1024,20,19,1,10754600,4.52825,9.05538,1
+Vegas,2,10,10,1024,20,19,2,10751920,4.52712,9.05538,1
+Vegas,4,10,10,1024,20,19,1,5387096,2.26825,9.06826,1
+Vegas,4,10,10,1024,20,19,2,5385488,2.26757,9.06826,1
+Vegas,4,10,10,1024,20,19,3,5382272,2.26622,9.06826,1
+Vegas,4,10,10,1024,20,19,4,5382272,2.26622,9.06826,1

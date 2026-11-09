@@ -1,0 +1,2 @@
+Algorithm,Bandwidth_Mbps,Delay_ms,PacketSize_bytes,SimulationTime_s,MeasurementWindow_s,TotalBytesReceived,Throughput_Mbps
+Vegas,10,200,1024,10,9,990288,0.880256

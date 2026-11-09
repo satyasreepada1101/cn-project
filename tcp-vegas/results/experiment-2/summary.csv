@@ -1,5 +1,5 @@
-Algorithm,Bottleneck_Delay_ms,Received_Bytes,Throughput_Mbps
-TCP Vegas,10,2499584,1.99967
-TCP Vegas,50,1387520,1.11002
-TCP Vegas,100,736256,0.589005
-TCP Vegas,200,778160,0.622528
+Algorithm,Bandwidth_Mbps,Delay_ms,PacketSize_bytes,SimulationTime_s,MeasurementWindow_s,TotalBytesReceived,Throughput_Mbps
+Vegas,10,10,1024,10,9,4679040,4.15915
+Vegas,10,50,1024,10,9,2864144,2.54591
+Vegas,10,100,1024,10,9,925432,0.822606
+Vegas,10,200,1024,10,9,990288,0.880256

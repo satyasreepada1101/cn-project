@@ -1,8 +1,10 @@
-#include "ns3/applications-module.h"
+
 #include "ns3/core-module.h"
-#include "ns3/internet-module.h"
 #include "ns3/network-module.h"
+#include "ns3/internet-module.h"
 #include "ns3/point-to-point-module.h"
+#include "ns3/applications-module.h"
+#include "ns3/flow-monitor-module.h"
 #include "ns3/tcp-vegas.h"
 
 #include <fstream>
@@ -11,91 +13,192 @@
 
 using namespace ns3;
 
-NS_LOG_COMPONENT_DEFINE("VegasExperiment2");
-
-static uint64_t
-RunSimulation(uint32_t delayMs)
+int main(int argc, char *argv[])
 {
+    uint32_t packetSize = 1024;
+    uint16_t port = 5000;
+
+    double simulationTime = 10.0;
+    double senderStartTime = 1.0;
+
+    double appRate = 5.0;
+    double linkRateMbps = 10.0;
+    double delayMs = 10.0;
+
+    std::string outputFile =
+        "scratch/results/experiment-2/vegas_10ms.csv";
+
+    CommandLine cmd;
+
+    cmd.AddValue("linkRateMbps",
+                "Link bandwidth in Mbps",
+                linkRateMbps);
+
+    cmd.AddValue("delayMs",
+                "Propagation delay in milliseconds",
+                delayMs);
+
+    cmd.AddValue("outputFile",
+                "CSV output file",
+                outputFile);
+
+    cmd.Parse(argc, argv);
+
+    // Select TCP Vegas
+    Config::SetDefault(
+        "ns3::TcpL4Protocol::SocketType",
+        TypeIdValue(TcpVegas::GetTypeId()));
+
+    // Create two nodes
     NodeContainer nodes;
     nodes.Create(2);
 
-    PointToPointHelper p2p;
-    p2p.SetDeviceAttribute("DataRate", StringValue("10Mbps"));
-    p2p.SetChannelAttribute("Delay", StringValue(std::to_string(delayMs) + "ms"));
+    // Point-to-point link
+    PointToPointHelper pointToPoint;
 
-    NetDeviceContainer devices = p2p.Install(nodes);
+    pointToPoint.SetDeviceAttribute(
+        "DataRate",
+        StringValue(std::to_string(linkRateMbps) + "Mbps"));
 
+    pointToPoint.SetChannelAttribute(
+        "Delay",
+        StringValue(std::to_string(delayMs) + "ms"));
+
+    NetDeviceContainer devices =
+        pointToPoint.Install(nodes);
+
+    // Internet stack
     InternetStackHelper internet;
     internet.Install(nodes);
 
+    // Assign IP addresses
     Ipv4AddressHelper address;
+
     address.SetBase("10.1.1.0", "255.255.255.0");
-    Ipv4InterfaceContainer interfaces = address.Assign(devices);
 
-    constexpr uint16_t port = 5000;
-    PacketSinkHelper sinkHelper("ns3::TcpSocketFactory",
-                                InetSocketAddress(Ipv4Address::GetAny(), port));
-    ApplicationContainer sinkApp = sinkHelper.Install(nodes.Get(1));
+    Ipv4InterfaceContainer interfaces =
+        address.Assign(devices);
+
+    // TCP receiver
+    PacketSinkHelper sinkHelper(
+        "ns3::TcpSocketFactory",
+        InetSocketAddress(Ipv4Address::GetAny(), port));
+
+    ApplicationContainer sinkApp =
+        sinkHelper.Install(nodes.Get(1));
+
     sinkApp.Start(Seconds(0.0));
-    sinkApp.Stop(Seconds(10.0));
+    sinkApp.Stop(Seconds(simulationTime));
 
-    OnOffHelper client("ns3::TcpSocketFactory",
-                       InetSocketAddress(interfaces.GetAddress(1), port));
-    client.SetAttribute("DataRate", StringValue("5Mbps"));
-    client.SetAttribute("PacketSize", UintegerValue(1024));
-    ApplicationContainer clientApp = client.Install(nodes.Get(0));
-    clientApp.Start(Seconds(1.0));
-    clientApp.Stop(Seconds(10.0));
+    // TCP sender
+    OnOffHelper sender(
+        "ns3::TcpSocketFactory",
+        InetSocketAddress(interfaces.GetAddress(1), port));
 
-    Simulator::Stop(Seconds(10.0));
+    sender.SetAttribute(
+        "DataRate",
+        StringValue(std::to_string(appRate) + "Mbps"));
+
+    sender.SetAttribute(
+        "PacketSize",
+        UintegerValue(packetSize));
+
+    sender.SetAttribute(
+        "OnTime",
+        StringValue("ns3::ConstantRandomVariable[Constant=1]"));
+
+    sender.SetAttribute(
+        "OffTime",
+        StringValue("ns3::ConstantRandomVariable[Constant=0]"));
+
+    ApplicationContainer senderApp =
+        sender.Install(nodes.Get(0));
+
+    senderApp.Start(Seconds(senderStartTime));
+    senderApp.Stop(Seconds(simulationTime));
+
+    // Run simulation
+    Simulator::Stop(Seconds(simulationTime));
+
     Simulator::Run();
 
-    Ptr<PacketSink> sink = DynamicCast<PacketSink>(sinkApp.Get(0));
-    const uint64_t receivedBytes = sink->GetTotalRx();
+    // Retrieve received bytes
+    Ptr<PacketSink> sink =
+        DynamicCast<PacketSink>(sinkApp.Get(0));
+
+    uint64_t totalBytesReceived =
+        sink->GetTotalRx();
+
+    double measurementWindow =
+        simulationTime - senderStartTime;
+
+    double throughputMbps =
+        (totalBytesReceived * 8.0) /
+        (measurementWindow * 1000000.0);
+
+    // Display results
+    std::cout << "\n========== TCP VEGAS RESULTS ==========\n";
+
+    std::cout << "TCP Algorithm: Vegas\n";
+
+    std::cout << "Link Bandwidth: "
+              << linkRateMbps << " Mbps\n";
+
+    std::cout << "Propagation Delay: "
+              << delayMs << " ms\n";
+
+    std::cout << "Application Rate: "
+              << appRate << " Mbps\n";
+
+    std::cout << "Total Bytes Received: "
+              << totalBytesReceived << " bytes\n";
+
+    std::cout << "Throughput: "
+              << throughputMbps << " Mbps\n";
+
+    std::cout << "Measurement Window: "
+              << measurementWindow << " seconds\n";
+
+    std::cout << "===================================\n";
+
+    // Save results to CSV
+    std::ofstream csvFile(outputFile);
+
+    if (!csvFile.is_open())
+    {
+        std::cerr << "Error opening output file: "
+                  << outputFile << std::endl;
+
+        Simulator::Destroy();
+        return 1;
+    }
+
+    csvFile
+        << "Algorithm,"
+        << "Bandwidth_Mbps,"
+        << "Delay_ms,"
+        << "PacketSize_bytes,"
+        << "SimulationTime_s,"
+        << "MeasurementWindow_s,"
+        << "TotalBytesReceived,"
+        << "Throughput_Mbps\n";
+
+    csvFile
+        << "Vegas,"
+        << linkRateMbps << ","
+        << delayMs << ","
+        << packetSize << ","
+        << simulationTime << ","
+        << measurementWindow << ","
+        << totalBytesReceived << ","
+        << throughputMbps << "\n";
+
+    csvFile.close();
+
+    std::cout << "Results saved to: "
+              << outputFile << std::endl;
+
     Simulator::Destroy();
 
-    return receivedBytes;
-}
-
-int
-main(int argc, char* argv[])
-{
-    CommandLine cmd(__FILE__);
-    cmd.Parse(argc, argv);
-
-    Config::SetDefault("ns3::TcpL4Protocol::SocketType",
-                       TypeIdValue(TcpVegas::GetTypeId()));
-
-    const std::string resultsPath =
-        "scratch/results/tcp-vegas/experiment-2/summary.csv";
-    std::ofstream results(resultsPath);
-    if (!results.is_open())
-    {
-        std::cerr << "Could not open results file: " << resultsPath << std::endl;
-        return 1;
-    }
-
-    results << "Algorithm,Bottleneck_Delay_ms,Received_Bytes,Throughput_Mbps\n";
-    for (const uint32_t delayMs : {10, 50, 100, 200})
-    {
-        const uint64_t receivedBytes = RunSimulation(delayMs);
-        const double throughputMbps =
-            (receivedBytes * 8.0) / (10.0 * 1000000.0);
-
-        results << "TCP Vegas," << delayMs << ',' << receivedBytes << ','
-                << throughputMbps << '\n';
-        std::cout << "Delay: " << delayMs << " ms, received bytes: "
-                  << receivedBytes << ", throughput: " << throughputMbps
-                  << " Mbps" << std::endl;
-    }
-
-    if (!results)
-    {
-        std::cerr << "Failed while writing results file: " << resultsPath
-                  << std::endl;
-        return 1;
-    }
-
-    std::cout << "Results saved to " << resultsPath << std::endl;
     return 0;
 }

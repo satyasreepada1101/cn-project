@@ -1,67 +1,193 @@
-TCP Vegas experiment verification
-2026-10-25T01:18:52+05:30
+===== vegas-exp1-10Mbps =====
+Consolidate compiler generated dependencies of target scratch_experiment-1-vegas_vegas-experiment-1
+gmake[3]: Warning: File 'scratch/CMakeFiles/scratch_experiment-1-vegas_vegas-experiment-1.dir/compiler_depend.make' has modification time 0.76 s in the future
+gmake[3]: warning:  Clock skew detected.  Your build may be incomplete.
 
-$ ./ns3 build
-Finished executing the following commands:
-/usr/bin/cmake --build /mnt/c/Satya Sreepada/B.Tech/SEM 5/Computer Networks/Project/ns-allinone-3.43/ns-3.43/cmake-cache -j 15
+========== TCP VEGAS RESULTS ==========
+TCP Algorithm: Vegas
+Link Bandwidth: 10 Mbps
+Application Rate: 5 Mbps
+Total Bytes Received: 4679040 bytes
+Throughput: 4.15915 Mbps
+Measurement Window: 9 seconds
+===================================
+Results saved to: results/experiment-1/vegas_10Mbps.csv
+===== vegas-exp1-2Mbps =====
 
-$ ./ns3 run scratch/experiment-1-vegas/vegas-experiment-1 --bandwidth=10
-TCP Vegas Experiment 1 Started
-Bottleneck bandwidth: 10 Mbps
-Created 2 nodes
-Connected nodes with 10Mbps, 10ms link
-Node 0 IP: 10.1.1.1
-Node 1 IP: 10.1.1.2
-TCP Vegas traffic started
-Total Bytes Received: 2499584
-Throughput: 1.99967 Mbps
+========== TCP VEGAS RESULTS ==========
+TCP Algorithm: Vegas
+Link Bandwidth: 2 Mbps
+Application Rate: 5 Mbps
+Total Bytes Received: 2036560 bytes
+Throughput: 1.81028 Mbps
+Measurement Window: 9 seconds
+===================================
+Results saved to: results/experiment-1/vegas_2Mbps.csv
+===== vegas-exp1-5Mbps =====
 
-$ ./ns3 run scratch/experiment-1-vegas/vegas-experiment-1 --bandwidth=5
-TCP Vegas Experiment 1 Started
-Bottleneck bandwidth: 5 Mbps
-Created 2 nodes
-Connected nodes with 5Mbps, 10ms link
-Node 0 IP: 10.1.1.1
-Node 1 IP: 10.1.1.2
-TCP Vegas traffic started
-Total Bytes Received: 2301952
-Throughput: 1.84156 Mbps
+========== TCP VEGAS RESULTS ==========
+TCP Algorithm: Vegas
+Link Bandwidth: 5 Mbps
+Application Rate: 5 Mbps
+Total Bytes Received: 4367088 bytes
+Throughput: 3.88186 Mbps
+Measurement Window: 9 seconds
+===================================
+Results saved to: results/experiment-1/vegas_5Mbps.csv
+===== vegas-exp2-100ms =====
 
-$ ./ns3 run scratch/experiment-1-vegas/vegas-experiment-1 --bandwidth=2
-TCP Vegas Experiment 1 Started
-Bottleneck bandwidth: 2 Mbps
-Created 2 nodes
-Connected nodes with 2Mbps, 10ms link
-Node 0 IP: 10.1.1.1
-Node 1 IP: 10.1.1.2
-TCP Vegas traffic started
-Total Bytes Received: 1236992
-Throughput: 0.989594 Mbps
+========== TCP VEGAS RESULTS ==========
+TCP Algorithm: Vegas
+Link Bandwidth: 10 Mbps
+Propagation Delay: 100 ms
+Application Rate: 5 Mbps
+Total Bytes Received: 925432 bytes
+Throughput: 0.822606 Mbps
+Measurement Window: 9 seconds
+===================================
+Results saved to: scratch/results/experiment-2/vegas_100ms.csv
+===== vegas-exp2-10ms =====
+Consolidate compiler generated dependencies of target scratch_experiment-2-vegas_vegas-experiment-2
+gmake[3]: Warning: File 'scratch/CMakeFiles/scratch_experiment-2-vegas_vegas-experiment-2.dir/compiler_depend.make' has modification time 0.32 s in the future
+gmake[3]: warning:  Clock skew detected.  Your build may be incomplete.
 
-$ ./ns3 run scratch/experiment-2-vegas/vegas-experiment-2
-Delay: 10 ms, received bytes: 2499584, throughput: 1.99967 Mbps
-Delay: 50 ms, received bytes: 1387520, throughput: 1.11002 Mbps
-Delay: 100 ms, received bytes: 736256, throughput: 0.589005 Mbps
-Delay: 200 ms, received bytes: 778160, throughput: 0.622528 Mbps
-Results saved to scratch/results/tcp-vegas/experiment-2/summary.csv
+========== TCP VEGAS RESULTS ==========
+TCP Algorithm: Vegas
+Link Bandwidth: 10 Mbps
+Propagation Delay: 10 ms
+Application Rate: 5 Mbps
+Total Bytes Received: 4679040 bytes
+Throughput: 4.15915 Mbps
+Measurement Window: 9 seconds
+===================================
+Results saved to: scratch/results/experiment-2/vegas_10ms.csv
+===== vegas-exp2-200ms =====
 
-$ ./ns3 run scratch/experiment-3-vegas/vegas-experiment-3
-Packet loss: 0%, received bytes: 2499584, throughput: 1.99967 Mbps
-Packet loss: 0.1%, received bytes: 2499584, throughput: 1.99967 Mbps
-Packet loss: 0.5%, received bytes: 2217984, throughput: 1.77439 Mbps
-Packet loss: 1%, received bytes: 1964032, throughput: 1.57123 Mbps
-Packet loss is applied at the receiver-side device of the bottleneck point-to-point link.
-Results saved to scratch/results/tcp-vegas/experiment-3/summary.csv
+========== TCP VEGAS RESULTS ==========
+TCP Algorithm: Vegas
+Link Bandwidth: 10 Mbps
+Propagation Delay: 200 ms
+Application Rate: 5 Mbps
+Total Bytes Received: 990288 bytes
+Throughput: 0.880256 Mbps
+Measurement Window: 9 seconds
+===================================
+Results saved to: scratch/results/experiment-2/vegas_200ms.csv
+===== vegas-exp2-50ms =====
 
-$ ./ns3 run scratch/experiment-4-vegas/vegas-experiment-4
-Flows: 1, flow 1, received bytes: 2499584, throughput: 1.99967 Mbps
-Flows: 1, aggregate received bytes: 2499584, aggregate throughput: 1.99967 Mbps, Jain fairness: 1
-Flows: 2, flow 1, received bytes: 2499584, throughput: 1.99967 Mbps
-Flows: 2, flow 2, received bytes: 2499584, throughput: 1.99967 Mbps
-Flows: 2, aggregate received bytes: 4999168, aggregate throughput: 3.99933 Mbps, Jain fairness: 1
-Flows: 4, flow 1, received bytes: 1669120, throughput: 1.3353 Mbps
-Flows: 4, flow 2, received bytes: 1667072, throughput: 1.33366 Mbps
-Flows: 4, flow 3, received bytes: 1664000, throughput: 1.3312 Mbps
-Flows: 4, flow 4, received bytes: 1521664, throughput: 1.21733 Mbps
-Flows: 4, aggregate received bytes: 6521856, aggregate throughput: 5.21748 Mbps, Jain fairness: 0.998517
-Results saved to scratch/results/tcp-vegas/experiment-4/summary.csv
+========== TCP VEGAS RESULTS ==========
+TCP Algorithm: Vegas
+Link Bandwidth: 10 Mbps
+Propagation Delay: 50 ms
+Application Rate: 5 Mbps
+Total Bytes Received: 2864144 bytes
+Throughput: 2.54591 Mbps
+Measurement Window: 9 seconds
+===================================
+Results saved to: scratch/results/experiment-2/vegas_50ms.csv
+===== vegas-exp3-0.1percent =====
+
+========== TCP VEGAS RESULTS ==========
+TCP Algorithm: Vegas
+Link Bandwidth: 10 Mbps
+Propagation Delay: 10 ms
+Packet Loss Rate: 0.1%
+Application Rate: 5 Mbps
+Total Bytes Received: 4949184 bytes
+Throughput: 4.39927 Mbps
+Measurement Window: 9 seconds
+===================================
+Results saved to: scratch/results/experiment-3/vegas_0.1percent.csv
+===== vegas-exp3-0.5percent =====
+
+========== TCP VEGAS RESULTS ==========
+TCP Algorithm: Vegas
+Link Bandwidth: 10 Mbps
+Propagation Delay: 10 ms
+Packet Loss Rate: 0.5%
+Application Rate: 5 Mbps
+Total Bytes Received: 4275968 bytes
+Throughput: 3.80086 Mbps
+Measurement Window: 9 seconds
+===================================
+Results saved to: scratch/results/experiment-3/vegas_0.5percent.csv
+===== vegas-exp3-0percent =====
+Consolidate compiler generated dependencies of target scratch_experiment-3-vegas_vegas-experiment-3
+
+========== TCP VEGAS RESULTS ==========
+TCP Algorithm: Vegas
+Link Bandwidth: 10 Mbps
+Propagation Delay: 10 ms
+Packet Loss Rate: 0%
+Application Rate: 5 Mbps
+Total Bytes Received: 4679040 bytes
+Throughput: 4.15915 Mbps
+Measurement Window: 9 seconds
+===================================
+Results saved to: scratch/results/experiment-3/vegas_0percent.csv
+===== vegas-exp3-1percent =====
+
+========== TCP VEGAS RESULTS ==========
+TCP Algorithm: Vegas
+Link Bandwidth: 10 Mbps
+Propagation Delay: 10 ms
+Packet Loss Rate: 1%
+Application Rate: 5 Mbps
+Total Bytes Received: 2925080 bytes
+Throughput: 2.60007 Mbps
+Measurement Window: 9 seconds
+===================================
+Results saved to: scratch/results/experiment-3/vegas_1percent.csv
+===== vegas-exp4-1flow =====
+
+========== TCP VEGAS MULTI-FLOW RESULTS ==========
+TCP Algorithm: Vegas
+Number of Flows: 1
+Link Bandwidth: 10 Mbps
+Propagation Delay: 10 ms
+Application Rate per Flow: 5 Mbps
+Flow 1 Received Bytes: 9908256
+Flow 1 Throughput: 4.1719 Mbps
+Total Throughput: 4.1719 Mbps
+Jain's Fairness Index: 1
+Measurement Window: 19 seconds
+===============================================
+Results saved to: scratch/results/experiment-4/vegas_1flow.csv
+===== vegas-exp4-2flow =====
+
+========== TCP VEGAS MULTI-FLOW RESULTS ==========
+TCP Algorithm: Vegas
+Number of Flows: 2
+Link Bandwidth: 10 Mbps
+Propagation Delay: 10 ms
+Application Rate per Flow: 5 Mbps
+Flow 1 Received Bytes: 10754600
+Flow 1 Throughput: 4.52825 Mbps
+Flow 2 Received Bytes: 10751920
+Flow 2 Throughput: 4.52712 Mbps
+Total Throughput: 9.05538 Mbps
+Jain's Fairness Index: 1
+Measurement Window: 19 seconds
+===============================================
+Results saved to: scratch/results/experiment-4/vegas_2flow.csv
+===== vegas-exp4-4flow =====
+
+========== TCP VEGAS MULTI-FLOW RESULTS ==========
+TCP Algorithm: Vegas
+Number of Flows: 4
+Link Bandwidth: 10 Mbps
+Propagation Delay: 10 ms
+Application Rate per Flow: 5 Mbps
+Flow 1 Received Bytes: 5387096
+Flow 1 Throughput: 2.26825 Mbps
+Flow 2 Received Bytes: 5385488
+Flow 2 Throughput: 2.26757 Mbps
+Flow 3 Received Bytes: 5382272
+Flow 3 Throughput: 2.26622 Mbps
+Flow 4 Received Bytes: 5382272
+Flow 4 Throughput: 2.26622 Mbps
+Total Throughput: 9.06826 Mbps
+Jain's Fairness Index: 1
+Measurement Window: 19 seconds
+===============================================
+Results saved to: scratch/results/experiment-4/vegas_4flow.csv
