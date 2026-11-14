@@ -1,0 +1,16 @@
+algorithm,x,throughput,fairness,source
+Vegas,10,4.15915,,tcp-vegas\results\experiment-1\summary.csv
+Vegas,5,3.88186,,tcp-vegas\results\experiment-1\summary.csv
+Vegas,2,1.81028,,tcp-vegas\results\experiment-1\summary.csv
+Vegas,10,4.15915,,tcp-vegas\results\experiment-1\vegas_10Mbps.csv
+Vegas,2,1.81028,,tcp-vegas\results\experiment-1\vegas_2Mbps.csv
+Vegas,5,3.88186,,tcp-vegas\results\experiment-1\vegas_5Mbps.csv
+Veno,10,4.98256,,tcp-veno\results\experiment-1\summary.csv
+Veno,5,4.51319,,tcp-veno\results\experiment-1\summary.csv
+Veno,2,1.80938,,tcp-veno\results\experiment-1\summary.csv
+Veno,10,4.98256,,tcp-veno\results\experiment-1\veno_10Mbps.csv
+Veno,2,1.80938,,tcp-veno\results\experiment-1\veno_2Mbps.csv
+Veno,5,4.51319,,tcp-veno\results\experiment-1\veno_5Mbps.csv
+YeAH,10,4.98256,,tcp-yeah\results\experiment-1\yeah_10Mbps.csv
+YeAH,2,1.81028,,tcp-yeah\results\experiment-1\yeah_2Mbps.csv
+YeAH,5,4.51511,,tcp-yeah\results\experiment-1\yeah_5Mbps.csv

@@ -1,0 +1,4 @@
+Algorithm,FlowID,ReceivedBytes,Throughput_Mbps,TotalThroughput_Mbps,JainFairnessIndex
+Vegas,1,1175208,0.494824,9.0517,0.74061
+Veno,2,10407936,4.38229,9.0517,0.74061
+Yeah,3,9914632,4.17458,9.0517,0.74061
